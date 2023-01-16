@@ -2,9 +2,8 @@ const express = require("express");
 const app = express();
 const port = 3000; //PORT to change for the deployment
 const mongoose = require("mongoose");
-const routes = require('./routes/user')
-
-
+const Userroutes = require("./routes/user");
+const PartnerRoutes = require('./routes/partner');
 
 app.get("/", (req, res) => res.send("Hello World!"));
 
@@ -26,7 +25,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.json())
+app.use(express.json());
 //connect to database
 //not change the Username
 mongoose
@@ -38,4 +37,5 @@ mongoose
   .catch((err) => console.log(`connection failed ${err.message}`));
 
 //set authentification middleware
-app.use(routes)
+app.use(Userroutes);
+app.use(PartnerRoutes)
